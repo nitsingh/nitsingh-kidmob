@@ -45,23 +45,8 @@
             } catch(Exception $e) {
                 echo "Caught exception: ",  $e->getMessage(), "\n";
             }
-
-            function createBar($response) {
-
-            }
         ?>
 		
-		<div id="containerBarChart" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-
-<!-- Data from www.netmarketshare.com. Select Browsers => Desktop share by version. Download as tsv. -->
-<pre id="tsv" style="display:none">Browser Version	Total Market Share
-Critical thinking Critical Observation	26%
-Creative problem solving	20%
-Communications	10%
-Adaptability	35%
-New skills	5%
-Confidence	4%</pre>
-
         <script src="wp-includes/js/graph/graph.js"></script>
 	</body>
 </html>

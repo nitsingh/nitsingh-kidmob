@@ -15,6 +15,19 @@
         return $mysqli;
     }
 
+    function createBar($responses) {
+        $data = '[';
+        foreach ($responses as $key => $value) {
+            $data = $data . '["' . $value[options] . '",' . $value[count] . '],';
+        }
+        $data = rtrim($data, ",");
+        $data = $data . ']';
+
+        $canvas = '<div id="containerBarChart" data-graph=\'' . $data . '\' style="min-width: 310px; height: 400px; margin: 0 auto"></div>';
+
+        return $canvas;
+    }
+
     function createBubbleChart($responses) {
 
         $chartStart = '<div class="bubblechart">'
