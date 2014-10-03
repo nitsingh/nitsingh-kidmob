@@ -30,8 +30,15 @@
                     $quesType   =  $questionData[type];
                     $table      =  $questionData[table];
 
+                    // Collect all the responses to the question
+                    $responses = $mysqli->query("SELECT * FROM " . $table . " where qid='$quesId'");
+
                     if ($quesType == "Bubble") {
-                        createBubbleChart($mysqli, $quesId, $table);
+                        echo createBubbleChart($responses);
+                    } else if($quesType == "WordCloud") {
+                        echo createWordCloud($responses);
+                    } else if($quesType == "Bar") {
+                        echo createBar($responses);
                     }
                 }
 
@@ -39,10 +46,7 @@
                 echo "Caught exception: ",  $e->getMessage(), "\n";
             }
 
-            function createBubbleChart($mysqli, $quesId, $table) {
-
-                // Collect all the responses to the question
-                $responses = $mysqli->query("SELECT options, count FROM " . $table . " where qid='$quesId'");
+            function createBubbleChart($responses) {
 
                 $chartStart = '<div class="bubblechart">'
                             .   '<ul class="bubblechains">'
@@ -60,46 +64,37 @@
                     $chartRow = $chartRow . '<tr><td>' . $value[options] . '</td><td>' . $value[count] . '</td></tr>';
                 }
 
-                echo $chartStart . $chartRow . $chartEnd;
+                return $chartStart . $chartRow . $chartEnd;
+            }
+
+            function createWordCloud($responses) {
+               //FIXME: Move the question to the database
+               $question            = '<h1>What was your favorite part?</h1>';
+               $canvas              = '<div id="myCanvasContainer">'
+                                    .   '<canvas width="500" height="700" id="myCanvas">'
+                                    .       '<p>'
+                                    .           'Anything in here will be replaced on browsers that support the canvas element'
+                                    .       '</p>'
+                                    .   '</canvas>'
+                                    . '</div>';
+
+                $cloudDataStart     = '<div id="tags">'
+                                    . '<ul>';
+                $cloudDataEnd       = '</ul>'
+                                    . '</div>';
+
+                $cloudData          = '';
+                foreach ($responses as $key => $value) {
+                    $cloudData = $cloudData . '<li><a>' . $value[content] . '</a></li>';
+                }
+
+                return $question . $canvas . $cloudDataStart . $cloudData . $cloudDataEnd;
+            }
+
+            function createBar($response) {
+
             }
         ?>
-
-		<h1>What was your favorite part?</h1>
-		<div id="myCanvasContainer">
-			<canvas width="500" height="700" id="myCanvas">
-				<p>
-					Anything in here will be replaced on browsers that support the canvas element
-				</p>
-			</canvas>
-		</div>
-		<div id="tags">
-			<ul>
-				<li>
-					<a href="http://www.google.com" target="_blank">3D Printing!</a>
-				</li>
-				<li>
-					<a href="/fish">Putting my hand in the tube thing and forming the thermal plastic</a>
-				</li>
-				<li>
-					<a href="/chips">From day one to the final minutes, I loved it!</a>
-				</li>
-				<li>
-					<a href="/salt">I am not shore</a>
-				</li>
-				<li>
-					<a href="/vinegar">We should meet moHow I got to see how a 3d printer works and I had enough materials</a>
-				</li>
-				<li>
-					<a href="/chips">The building process </a>
-				</li>
-				<li>
-					<a href="/salt">3d printing</a>
-				</li>
-				<li>
-					<a href="/vinegar">3D Printing</a>
-				</li>
-			</ul>
-		</div>
 		
 		<div id="containerBarChart" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 
