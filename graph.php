@@ -14,21 +14,55 @@
 		
 	</head>
 	<body>
-		
-		<div class="bubblechart">
-		  <ul class="bubblechains">
-		    <li>
-		      <span>Responses</span>
-		      <table>
-		        <tr><td>Awesome!</td><td>6</td></tr>
-		        <tr><td>3</td><td>3</td></tr>
-		      </table>
-		    </li>
-		  </ul>
-		</div>
 
+        <?php
+            // Including database connection
+            include 'connection.php';
 
-		<!--<div id="container" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>-->
+            try{
+                $mysqli = getDBConnection();
+
+                // questions table has mapping of tables qid to graph type
+                $questionsMap = $mysqli->query("SELECT * FROM questions");
+
+                foreach ($questionsMap as $key => $questionData) {
+                    $quesId     =  $questionData[qid];
+                    $quesType   =  $questionData[type];
+                    $table      =  $questionData[table];
+
+                    if ($quesType == "Bubble") {
+                        createBubbleChart($mysqli, $quesId, $table);
+                    }
+                }
+
+            } catch(Exception $e) {
+                echo "Caught exception: ",  $e->getMessage(), "\n";
+            }
+
+            function createBubbleChart($mysqli, $quesId, $table) {
+
+                // Collect all the responses to the question
+                $responses = $mysqli->query("SELECT options, count FROM " . $table . " where qid='$quesId'");
+
+                $chartStart = '<div class="bubblechart">'
+                            .   '<ul class="bubblechains">'
+                            .       '<li>'
+                		    .           '<span>Responses</span>'
+                		    .           '<table>';
+
+                $chartEnd   =           '</table>'
+                            .	    '</li>'
+                            .   '</ul>'
+                            .'</div>';
+                $chartRow   = '';
+
+                foreach ($responses as $key => $value) {
+                    $chartRow = $chartRow . '<tr><td>' . $value[options] . '</td><td>' . $value[count] . '</td></tr>';
+                }
+
+                echo $chartStart . $chartRow . $chartEnd;
+            }
+        ?>
 
 		<h1>What was your favorite part?</h1>
 		<div id="myCanvasContainer">
