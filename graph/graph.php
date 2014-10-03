@@ -17,7 +17,7 @@
 
         <?php
             // Including database connection
-            include 'graph/Util.php';
+            include 'Util.php';
 
             try{
                 $mysqli = getDBConnection();
@@ -47,6 +47,6 @@
             }
         ?>
 		
-        <script src="wp-includes/js/graph/graph.js"></script>
+        <script src="/demo/wp-includes/js/graph/graph.js"></script>
 	</body>
 </html>

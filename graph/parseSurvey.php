@@ -1,16 +1,18 @@
 <?php
-    include 'connection.php';
+    include 'Util.php';
 
-    try {
-        $filePath = "survey.xml";
+    function parseSurvey() {
+        try {
+            $filePath = "upload/survey.xml";
 
-        $mysqli = getDBConnection();
-        $xml = xmlParser($filePath);
+            $mysqli = getDBConnection();
+            $xml = xmlParser($filePath);
 
-        xmlToDB($mysqli, $xml);
+            xmlToDB($mysqli, $xml);
 
-    } catch(Exception $e) {
-        echo "Caught exception: ",  $e->getMessage(), "\n";
+        } catch(Exception $e) {
+            echo "Caught exception: ",  $e->getMessage(), "\n";
+        }
     }
 
     function xmlToDB($mysqli, $xml) {
