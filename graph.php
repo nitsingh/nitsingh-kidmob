@@ -17,7 +17,7 @@
 
         <?php
             // Including database connection
-            include 'connection.php';
+            include 'graph/Util.php';
 
             try{
                 $mysqli = getDBConnection();
@@ -44,51 +44,6 @@
 
             } catch(Exception $e) {
                 echo "Caught exception: ",  $e->getMessage(), "\n";
-            }
-
-            function createBubbleChart($responses) {
-
-                $chartStart = '<div class="bubblechart">'
-                            .   '<ul class="bubblechains">'
-                            .       '<li>'
-                		    .           '<span>Responses</span>'
-                		    .           '<table>';
-
-                $chartEnd   =           '</table>'
-                            .	    '</li>'
-                            .   '</ul>'
-                            .'</div>';
-                $chartRow   = '';
-
-                foreach ($responses as $key => $value) {
-                    $chartRow = $chartRow . '<tr><td>' . $value[options] . '</td><td>' . $value[count] . '</td></tr>';
-                }
-
-                return $chartStart . $chartRow . $chartEnd;
-            }
-
-            function createWordCloud($responses) {
-               //FIXME: Move the question to the database
-               $question            = '<h1>What was your favorite part?</h1>';
-               $canvas              = '<div id="myCanvasContainer">'
-                                    .   '<canvas width="500" height="700" id="myCanvas">'
-                                    .       '<p>'
-                                    .           'Anything in here will be replaced on browsers that support the canvas element'
-                                    .       '</p>'
-                                    .   '</canvas>'
-                                    . '</div>';
-
-                $cloudDataStart     = '<div id="tags">'
-                                    . '<ul>';
-                $cloudDataEnd       = '</ul>'
-                                    . '</div>';
-
-                $cloudData          = '';
-                foreach ($responses as $key => $value) {
-                    $cloudData = $cloudData . '<li><a>' . $value[content] . '</a></li>';
-                }
-
-                return $question . $canvas . $cloudDataStart . $cloudData . $cloudDataEnd;
             }
 
             function createBar($response) {
