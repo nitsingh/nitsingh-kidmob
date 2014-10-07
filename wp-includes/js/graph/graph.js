@@ -3,13 +3,18 @@ $(document).ready(function() {
     /**
      * This code creates the Word cloud
      */
-    if(!$('#myCanvas').tagcanvas({
-        textColour: '#ff0000',
+    var TagCanvas = $('#myCanvas').tagcanvas({
+        textColour: '#000',
         outlineColour: '#ff00ff',
         reverse: true,
+        textHeight: 17,
         depth: 0.8,
-        maxSpeed: 0.05
-    },'tags')) {
+        maxSpeed: 0.05,
+        initial: [0,0.1],
+        noMouse: true
+    },'tags');
+
+    if(!TagCanvas) {
         // something went wrong, hide the canvas container
         $('#myCanvasContainer').hide();
     }
@@ -24,15 +29,15 @@ $(document).ready(function() {
             type: 'column'
         },
         title: {
-            text: 'World\'s largest cities per 2014'
+            text: ''
         },
-        subtitle: {
-            text: 'Source: <a href="http://en.wikipedia.org/wiki/List_of_cities_proper_by_population">Wikipedia</a>'
-        },
+//        subtitle: {
+//            text: 'Source: <a href="http://en.wikipedia.org/wiki/List_of_cities_proper_by_population">Wikipedia</a>'
+//        },
         xAxis: {
             type: 'category',
             labels: {
-                rotation: -45,
+                rotation: -90,
                 style: {
                     fontSize: '13px',
                     fontFamily: 'Verdana, sans-serif'
@@ -42,18 +47,25 @@ $(document).ready(function() {
         yAxis: {
             min: 0,
             title: {
-                text: 'Population (millions)'
+                text: 'No. of participants'
             }
         },
         legend: {
             enabled: false
         },
         tooltip: {
-            pointFormat: 'Population in 2008: <b>{point.y:.1f} millions</b>'
+            pointFormat: 'Total participants: <b>{point.y} </b>'
         },
         series: [{
             name: 'Population',
-            data: $series,
+            data: [
+                ["Critical thinking Critical Observation", 26],
+                ["Creative problem solving", 20],
+                ["Communications", 10],
+                ["Adaptability", 35],
+                ["New skills", 5],
+                ["Confidence", 4]
+            ],
             dataLabels: {
                 enabled: true,
                 rotation: -90,
