@@ -94,4 +94,9 @@ $(document).ready(function() {
     $('text:contains("Highcharts.com")').css({
         display: 'none'
     });
+    setTimeout(function() {
+        $('.bubblechart text').css({
+            'font-size': '17px'
+        })
+    }, 3000);
 });
