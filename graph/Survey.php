@@ -5,7 +5,7 @@
           include 'scriptLoader.php';
         ?>
     </head>
-    <body>
+    <body style="overflow: hidden;">
         <?php
             include 'graph.php';
         ?>

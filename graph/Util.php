@@ -16,6 +16,8 @@
     }
 
     function createBar($responses) {
+        $question = '<h1>Which of the following things did you do this week? (Bonus Points! Pick a few you feel most strongly about and give an example)</h1>';
+
         $data = '[';
         foreach ($responses as $key => $value) {
             $data = $data . '["' . $value[options] . '",' . $value[count] . '],';
@@ -25,11 +27,11 @@
 
         $canvas = '<div id="containerBarChart" data-graph=\'' . $data . '\' style="min-width: 310px; height: 400px; margin: 0 auto"></div>';
 
-        return $canvas;
+        return $question . $canvas;
     }
 
     function createBubbleChart($responses) {
-
+        $question = '<h1 style="margin-bottom: -35px;">On a scale from "1" to "AWESOME!!!" how would you rank this workshop?</h1>';
         $chartStart = '<div class="bubblechart">'
                     .   '<ul class="bubblechains">'
                     .       '<li>'
@@ -46,14 +48,14 @@
             $chartRow = $chartRow . '<tr><td>' . $value[options] . '</td><td>' . $value[count] . '</td></tr>';
         }
 
-        return $chartStart . $chartRow . $chartEnd;
+        return $question . $chartStart . $chartRow . $chartEnd;
     }
 
     function createWordCloud($responses) {
        //FIXME: Move the question to the database
-       $question            = '<h1>What was your favorite part?</h1>';
+       $question            = '<h1 style="margin-bottom: -50px;">What was your favorite part?</h1>';
        $canvas              = '<div id="myCanvasContainer">'
-                            .   '<canvas width="500" height="700" id="myCanvas">'
+                            .   '<canvas width="895" height="700" id="myCanvas">'
                             .       '<p>'
                             .           'Anything in here will be replaced on browsers that support the canvas element'
                             .       '</p>'
