@@ -30,4 +30,4 @@
     }
 ?>
 
-<script src="/demo/wp-includes/js/graph/graph.js"></script>
+<script src="/wp-includes/js/graph/graph.js"></script>

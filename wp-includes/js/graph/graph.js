@@ -1,5 +1,4 @@
 $(document).ready(function() {
-
     /**
      * This code creates the Word cloud
      */
@@ -81,4 +80,11 @@ $(document).ready(function() {
             }
         }]
     });
+
+    /**
+     * Calculate the height of the page and tell the parent
+     */
+    if(window.parent.frameResizer) {
+        window.parent.frameResizer($(document).height() + 200);
+    }
 });

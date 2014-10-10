@@ -1,10 +1,10 @@
 <?php
 
     function getDBConnection() {
-        $host = "127.0.0.1";
-        $user = "root";
-        $password = "root";
-        $database = "kidmob";
+        $host = "localhost";
+        $user = "tpew_kidmob";
+        $password = "kidmob";
+        $database = "tpew_kidmob";
         $port = 8889;
 
         $mysqli = new mysqli($host, $user, $password, $database, $port);
