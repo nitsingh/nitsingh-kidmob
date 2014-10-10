@@ -53,7 +53,7 @@
 
     function createWordCloud($responses) {
        //FIXME: Move the question to the database
-       $question            = '<h1 style="margin-bottom: -50px;">What was your favorite part?</h1>';
+       $question            = '<h1 style="margin-bottom: -110px;">What was your favorite part?</h1>';
        $canvas              = '<div id="myCanvasContainer">'
                             .   '<canvas width="895" height="700" id="myCanvas">'
                             .       '<p>'

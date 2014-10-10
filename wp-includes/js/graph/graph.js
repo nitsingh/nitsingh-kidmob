@@ -10,7 +10,11 @@ $(document).ready(function() {
         depth: 0.8,
         maxSpeed: 0.05,
         initial: [0,0.1],
-        noMouse: true
+        noMouse: true,
+        shape: 'hring',
+        radiusZ: 0.7,
+        radiusX: 1,
+        radiusY: 0.7
     },'tags');
 
     if(!TagCanvas) {
