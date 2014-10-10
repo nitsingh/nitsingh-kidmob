@@ -23,15 +23,23 @@
         var $scripts = $(window.parent.document).find('link');
         var cssScripts = [];
         $scripts.each(function() {
-            if($(this).attr('type') === 'text/css') {
+            if($(this).attr('type') === 'text/css' || $(this).attr('rel') === 'stylesheet') {
                 cssScripts.push($(this).attr('href'));
             }
         });
 
-        $.each(cssScripts, function(index, value) {
-            //document.write('<link rel="stylesheet" type="text/css" src="http:' + value + '">');
+        for(var i = cssScripts.length - 1; i >= 0; i--) {
+            var value = cssScripts[i];
 
-            url = 'http:' + value;
+            if(value.indexOf('http') === 0) {
+                url = value;
+            } else if(value.indexOf('//') === 0) {
+                url = 'http:' + value;
+            } else if(value.indexOf('/') === 0) {
+                /* Currently not handled */
+                continue;
+            }
+
             if (document.createStyleSheet)
             {
                 document.createStyleSheet(url);
@@ -40,6 +48,6 @@
             {
                 $('<link rel="stylesheet" type="text/css" href="' + url + '" />').appendTo('head');
             }
-        });
+        };
     }
 </script>

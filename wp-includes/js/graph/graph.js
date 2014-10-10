@@ -87,4 +87,11 @@ $(document).ready(function() {
     if(window.parent.frameResizer) {
         window.parent.frameResizer($(document).height() + 200);
     }
+
+    /**
+     * Few cleanups
+     */
+    $('text:contains("Highcharts.com")').css({
+        display: 'none'
+    });
 });
